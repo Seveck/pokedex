@@ -25,17 +25,24 @@ const pokemonSelected = async (pokemonUrl) => {
         const pokemonImage = document.getElementById("pokemon-image");
         const pokemonName = document.getElementById("pokemon-name");
         const pokemonStats = document.getElementById("pokemon-stats");
+        const pokemonAbilities = document.getElementById("pokemon-abilities");
 
         pokemonImage.src = response.sprites.front_default;
         pokemonName.textContent = response.name;
 
         pokemonStats.innerHTML = "";
+        pokemonAbilities.innerHTML = "";
 
         response.stats.forEach(stat => {
             const li = document.createElement("li");
             li.textContent = `${stat.stat.name}: ${stat.base_stat}`;
             pokemonStats.appendChild(li);
+        })
 
+        response.abilities.forEach(ability => {
+            const li = document.createElement("li");
+            li.textContent = ability.ability.name;
+            pokemonAbilities.appendChild(li);
         })
     } catch (error) {
         console.error("Error fetching pokemon details:", error);
