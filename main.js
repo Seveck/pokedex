@@ -26,6 +26,8 @@ const pokemonSelected = async (pokemonUrl) => {
         const pokemonName = document.getElementById("pokemon-name");
         const pokemonStats = document.getElementById("pokemon-stats");
         const pokemonAbilities = document.getElementById("pokemon-abilities");
+        const tituloTipo = document.getElementById("tipo");
+        const listaTipos = document.getElementById("listaTipos");
 
         pokemonImage.src = response.sprites.front_default;
         pokemonName.textContent = response.name;
@@ -44,6 +46,22 @@ const pokemonSelected = async (pokemonUrl) => {
             li.textContent = ability.ability.name;
             pokemonAbilities.appendChild(li);
         })
+
+        pokemonImage.addEventListener("mouseover", () => {
+            listaTipos.innerHTML = "";
+            
+            tituloTipo.innerHTML = `<h3>Tipos</h3>`;
+            for(let i = 0; i < response.types.length; i++) {
+                listaTipos.innerHTML += `<li>${response.types[i].type.name}</li>`;
+            }
+        });
+
+        pokemonImage.addEventListener("mouseout", () => {
+            listaTipos.innerHTML = "";
+            tituloTipo.innerHTML = "";
+        });
+        
+        
     } catch (error) {
         console.error("Error fetching pokemon details:", error);
     }
